@@ -6,6 +6,15 @@ This is a [Heroku Buildpack](http://devcenter.heroku.com/articles/buildpacks) fo
 
 This buildpack requires 64-bit Linux.
 
+## About this fork
+
+This is a fork of Heroku's official Ruby buildpack, but it uses the `Gemfile.next` file instead of `Gemfile` to install gems. The official buildpack does not support the use of the `BUNDLE_GEMFILE` environment variable.
+
+This is useful for setups that use dual-boot:
+
+- the official buildpack can be used to run the application using the gems in the `Gemfile` file
+- this fork can be used to run the application using the gems in the `Gemfile.next` file
+
 ## Usage
 
 ### Ruby
