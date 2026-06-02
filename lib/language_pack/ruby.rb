@@ -19,7 +19,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   # detects if this is a valid Ruby app
   # @return [Boolean] true if it's a Ruby app
   def self.use?(bundler: nil)
-    File.exist?("Gemfile")
+    File.exist?("Gemfile.next")
   end
 
   def initialize(...)
@@ -173,7 +173,7 @@ class LanguagePack::Ruby < LanguagePack::Base
         Your bundler version changed from `#{old_bundler_version}` to `#{bundler_version}`.
 
         If you see problems related to the new bundler version, you can revert to the previous version
-        by updating the `BUNDLED WITH` value in your `Gemfile.lock`. For example:
+        by updating the `BUNDLED WITH` value in your `Gemfile.next.lock`. For example:
 
         ```
         BUNDLED WITH
@@ -183,7 +183,7 @@ class LanguagePack::Ruby < LanguagePack::Base
         Commit the results to git before redeploying:
 
         ```
-        $ git add Gemfile.lock
+        $ git add Gemfile.next.lock
         $ git commit -m "Revert to previous bundler version"
         ```
       WARNING
@@ -345,7 +345,7 @@ class LanguagePack::Ruby < LanguagePack::Base
     set_export_default "BUNDLE_PATH", ENV["BUNDLE_PATH"]
     set_export_default "BUNDLE_WITHOUT", ENV["BUNDLE_WITHOUT"]
     set_export_default "BUNDLE_BIN", ENV["BUNDLE_BIN"]
-    set_export_default "BUNDLE_DEPLOYMENT", ENV["BUNDLE_DEPLOYMENT"] # Unset on windows since we delete the Gemfile.lock
+    set_export_default "BUNDLE_DEPLOYMENT", ENV["BUNDLE_DEPLOYMENT"] # Unset on windows since we delete the Gemfile.next.lock
     default_config_vars.each do |key, value|
       set_export_default key, value
     end
@@ -389,7 +389,7 @@ class LanguagePack::Ruby < LanguagePack::Base
     set_env_default "BUNDLE_PATH", ENV["BUNDLE_PATH"]
     set_env_default "BUNDLE_WITHOUT", ENV["BUNDLE_WITHOUT"]
     set_env_default "BUNDLE_BIN", ENV["BUNDLE_BIN"]
-    set_env_default "BUNDLE_DEPLOYMENT", ENV["BUNDLE_DEPLOYMENT"] if ENV["BUNDLE_DEPLOYMENT"] # Unset on windows since we delete the Gemfile.lock
+    set_env_default "BUNDLE_DEPLOYMENT", ENV["BUNDLE_DEPLOYMENT"] if ENV["BUNDLE_DEPLOYMENT"] # Unset on windows since we delete the Gemfile.next.lock
   end
 
   def warn_outdated_ruby
@@ -513,9 +513,9 @@ class LanguagePack::Ruby < LanguagePack::Base
     io.topic "Using Ruby version: #{ruby_version.version_for_download}"
     if ruby_version.default?
       warn(<<~WARNING)
-        You have not declared a Ruby version in your Gemfile.
+        You have not declared a Ruby version in your Gemfile.next.
 
-        To declare a Ruby version add this line to your Gemfile:
+        To declare a Ruby version add this line to your Gemfile.next:
 
         ```
         ruby "#{LanguagePack::RubyVersion::DEFAULT_VERSION_NUMBER}"
@@ -655,7 +655,7 @@ class LanguagePack::Ruby < LanguagePack::Base
     io.topic("Installing dependencies using bundler #{bundler_version}")
     env_vars = {}
 
-    env_vars["BUNDLE_GEMFILE"] = app_path.join("Gemfile").to_s
+    env_vars["BUNDLE_GEMFILE"] = app_path.join("Gemfile.next").to_s
     env_vars["BUNDLE_CONFIG"] = app_path.join(".bundle/config").to_s
     env_vars["NOKOGIRI_USE_SYSTEM_LIBRARIES"] = "true"
     env_vars["BUNDLE_DISABLE_VERSION_CHECK"] = "true"
@@ -684,15 +684,15 @@ class LanguagePack::Ruby < LanguagePack::Base
         ERROR
       end
 
-      if /but your Gemfile specified/.match?(bundler_output)
+      if /but your Gemfile.next specified/.match?(bundler_output)
         error_message += <<~ERROR
 
           Detected a mismatch between your Ruby version installed and
-          Ruby version specified in Gemfile or Gemfile.lock. You can
+          Ruby version specified in Gemfile.next or Gemfile.next.lock. You can
           correct this by running:
 
               $ bundle update --ruby
-              $ git add Gemfile.lock
+              $ git add Gemfile.next.lock
               $ git commit -m "update ruby version"
 
           If this does not solve the issue please see this documentation:
@@ -728,7 +728,7 @@ class LanguagePack::Ruby < LanguagePack::Base
       {"DATABASE_URL" => database_url}
     else
       {}
-    end.merge(user_env_hash)
+    end.merge(user_env_hash).merge("BUNDLE_GEMFILE" => "Gemfile.next")
   end
 
   def database_url

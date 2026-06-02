@@ -145,10 +145,10 @@ describe "Bash functions" do
     expect(out).to be_empty
   end
 
-  it "Detects jruby in the Gemfile.lock" do
+  it "Detects jruby in the Gemfile.next.lock" do
     Dir.mktmpdir do |dir|
       dir = Pathname(dir)
-      dir.join("Gemfile.lock").write <<~EOM
+      dir.join("Gemfile.next.lock").write <<~EOM
         RUBY VERSION
            ruby 2.5.7p001 (jruby 9.2.13.0)
       EOM
@@ -168,7 +168,7 @@ describe "Bash functions" do
 
       expect(out).to eq("jruby detected")
 
-      dir.join("Gemfile.lock").write <<~EOM
+      dir.join("Gemfile.next.lock").write <<~EOM
       EOM
 
       out = exec_with_bash_functions <<~EOM
@@ -191,7 +191,7 @@ describe "Bash functions" do
   it "Detects java for jruby detection" do
     Dir.mktmpdir do |dir|
       dir = Pathname(dir)
-      dir.join("Gemfile.lock").write <<~EOM
+      dir.join("Gemfile.next.lock").write <<~EOM
         RUBY VERSION
            ruby 2.5.7p001 (jruby 9.2.13.0)
       EOM

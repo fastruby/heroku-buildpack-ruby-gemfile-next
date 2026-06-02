@@ -36,7 +36,7 @@ class LanguagePack::Helpers::BundlerWrapper
   def initialize(
     bundler_path:,
     bundler_version:,
-    gemfile_path: Pathname.new("./Gemfile"),
+    gemfile_path: Pathname.new("./Gemfile.next"),
     report: HerokuBuildReport::GLOBAL
   )
     @report = report
@@ -104,7 +104,7 @@ class LanguagePack::Helpers::BundlerWrapper
     run!("GEM_HOME=#{bundler_path} gem install bundler --version #{@version} --no-document --env-shebang")
   end
 
-  # Runs a Ruby subprocess to parse the Gemfile.lock and return specs as a hash.
+  # Runs a Ruby subprocess to parse the Gemfile.next.lock and return specs as a hash.
   private def specs_from_lockfile
     LanguagePack::Helpers::LockfileShellParser.call(lockfile_path: @gemfile_lock_path)
   end
@@ -117,11 +117,11 @@ class LanguagePack::Helpers::BundlerWrapper
       warn_io.warn(<<~WARNING)
         Using default bundler version `#{DEFAULT_VERSION}`
 
-        The Ruby buildpack uses the `BUNDLED WITH` value in your `Gemfile.lock` to determine the version
-        of bundler to install. Your `Gemfile.lock` does not contain this section, so a default version
+        The Ruby buildpack uses the `BUNDLED WITH` value in your `Gemfile.next.lock` to determine the version
+        of bundler to install. Your `Gemfile.next.lock` does not contain this section, so a default version
         of bundler will be installed instead.
 
-        Heroku recommends that you have both a `RUBY VERSION` and `BUNDLED WITH` version listed in your `Gemfile.lock`.
+        Heroku recommends that you have both a `RUBY VERSION` and `BUNDLED WITH` version listed in your `Gemfile.next.lock`.
         You can add it to your project by running:
 
         ```
@@ -131,7 +131,7 @@ class LanguagePack::Helpers::BundlerWrapper
         Commit the results to git before redeploying:
 
         ```
-        $ git add Gemfile.lock
+        $ git add Gemfile.next.lock
         $ git commit -m "Add BUNDLED WITH version"
         ```
       WARNING

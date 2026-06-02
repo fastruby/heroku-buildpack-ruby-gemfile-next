@@ -2,9 +2,9 @@ require "spec_helper"
 
 describe LanguagePack::Helpers::LockfileShellParser do
   describe ".call" do
-    it "parses gem specs from a Gemfile.lock" do
+    it "parses gem specs from a Gemfile.next.lock" do
       Dir.mktmpdir do |dir|
-        lockfile_path = Pathname(dir).join("Gemfile.lock")
+        lockfile_path = Pathname(dir).join("Gemfile.next.lock")
         lockfile_path.write(<<~EOF)
           GEM
             remote: https://rubygems.org/
@@ -46,7 +46,7 @@ describe LanguagePack::Helpers::LockfileShellParser do
 
     it "reports error on invalid lockfile contents" do
       Dir.mktmpdir do |dir|
-        lockfile_path = Pathname(dir).join("Gemfile.lock").tap { |p|
+        lockfile_path = Pathname(dir).join("Gemfile.next.lock").tap { |p|
           # Write invalid UTF-8 bytes to trigger Bundler::LockfileError
           p.binwrite("\xff\xfe")
         }
@@ -56,9 +56,9 @@ describe LanguagePack::Helpers::LockfileShellParser do
       end
     end
 
-    it "parses multiple gems from a Gemfile.lock" do
+    it "parses multiple gems from a Gemfile.next.lock" do
       Dir.mktmpdir do |dir|
-        lockfile_path = Pathname(dir).join("Gemfile.lock")
+        lockfile_path = Pathname(dir).join("Gemfile.next.lock")
         lockfile_path.write(<<~EOF)
           GEM
             remote: https://rubygems.org/
@@ -89,7 +89,7 @@ describe LanguagePack::Helpers::LockfileShellParser do
 
     it "returns an empty hash for a lockfile with no gems" do
       Dir.mktmpdir do |dir|
-        lockfile_path = Pathname(dir).join("Gemfile.lock")
+        lockfile_path = Pathname(dir).join("Gemfile.next.lock")
         lockfile_path.write(<<~EOF)
           GEM
             remote: https://rubygems.org/

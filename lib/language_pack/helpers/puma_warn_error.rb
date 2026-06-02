@@ -24,7 +24,7 @@ class LanguagePack::Helpers::PumaWarnError
       ```
       $ gem install puma
       $ bundle update puma
-      $ git add Gemfile.lock && git commit -m "Upgrade Puma to 7.0.3+"
+      $ git add Gemfile.next.lock && git commit -m "Upgrade Puma to 7.0.3+"
       ```
     WARNING
   end
@@ -46,7 +46,7 @@ class LanguagePack::Helpers::PumaWarnError
       ```
       $ gem install puma
       $ bundle update puma
-      $ git add Gemfile.lock && git commit -m "Upgrade Puma to 7.0.3+"
+      $ git add Gemfile.next.lock && git commit -m "Upgrade Puma to 7.0.3+"
       ```
     ERROR
   end

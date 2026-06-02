@@ -1,4 +1,5 @@
 # Heroku Buildpack for Ruby
+
 ![ruby](https://raw.githubusercontent.com/heroku/buildpacks/refs/heads/main/assets/images/buildpack-banner-ruby.png)
 
 This is a [Heroku Buildpack](http://devcenter.heroku.com/articles/buildpacks) for Ruby, Rack, and Rails apps. It uses [Bundler](https://bundler.io) for dependency management.
@@ -12,7 +13,7 @@ This buildpack requires 64-bit Linux.
 Example Usage:
 
     $ ls
-    Gemfile Gemfile.lock
+    Gemfile.next Gemfile.next.lock
 
     $ heroku create --buildpack heroku/ruby
 
@@ -32,7 +33,7 @@ Example Usage:
            Procfile declares types -> (none)
            Default types for Ruby  -> console, rake
 
-The buildpack will detect your app as Ruby if it has a `Gemfile` and `Gemfile.lock` files in the root directory. It will then proceed to run `bundle install` after setting up the appropriate environment for [ruby](http://ruby-lang.org) and [Bundler](https://bundler.io).
+The buildpack will detect your app as Ruby if it has a `Gemfile.enxt` and `Gemfile.next.lock` files in the root directory. It will then proceed to run `bundle install` after setting up the appropriate environment for [ruby](http://ruby-lang.org) and [Bundler](https://bundler.io).
 
 ## Documentation
 
@@ -46,7 +47,7 @@ For more information about using Ruby and buildpacks on Heroku, see these Dev Ce
 
 ## Hacking
 
-To use this buildpack, fork it on Github.  Push up changes to your fork, then create a test app with `--buildpack <your-github-url>` and push to it.
+To use this buildpack, fork it on Github. Push up changes to your fork, then create a test app with `--buildpack <your-github-url>` and push to it.
 
 ### Testing
 

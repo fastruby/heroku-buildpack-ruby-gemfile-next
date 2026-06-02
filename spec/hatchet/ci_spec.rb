@@ -192,7 +192,7 @@ describe "CI" do
   it "works" do
     Hatchet::Runner.new("default_ruby", stack: DEFAULT_STACK).tap do |app|
       app.before_deploy do
-        Pathname("Gemfile").write(<<~EOF)
+        Pathname("Gemfile.next").write(<<~EOF)
           source 'http://rubygems.org'
           ruby '3.1.3'
           gem 'sinatra'
@@ -207,7 +207,7 @@ describe "CI" do
           end
         EOF
 
-        Pathname("Gemfile.lock").write(<<~EOF)
+        Pathname("Gemfile.next.lock").write(<<~EOF)
           GEM
             remote: http://rubygems.org/
             specs:

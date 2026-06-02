@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- Hardcode usage of `Gemfile.next` instead of `Gemfile` to use when dual-booting.
 
 ## [v359] - 2026-05-29
 

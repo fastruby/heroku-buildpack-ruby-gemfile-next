@@ -18,7 +18,7 @@ describe "Rails 3.x" do
         # expect(app.output).to include("Asset precompilation completed")
 
         expect(app.output).to match("WARNING")
-        expect(app.output).to match("Add 'rails_12factor' gem to your Gemfile to skip plugin injection")
+        expect(app.output).to match("Add 'rails_12factor' gem to your Gemfile.next to skip plugin injection")
 
         ls = app.run("ls vendor/plugins")
         expect(ls).to match("rails3_serve_static_assets")

@@ -56,19 +56,19 @@ end
 
 def set_ruby_version(version:)
   # Last ruby declaration in the gemfile wins
-  Pathname("Gemfile").write("\nruby '#{version}'", mode: "a")
+  Pathname("Gemfile.next").write("\nruby '#{version}'", mode: "a")
 
-  # Update the Gemfile.lock to match
-  contents = Pathname("Gemfile.lock").read.concat(<<~EOF)
+  # Update the Gemfile.next.lock to match
+  contents = Pathname("Gemfile.next.lock").read.concat(<<~EOF)
 
     RUBY VERSION
        ruby #{version}p170
   EOF
-  Pathname("Gemfile.lock").write(contents)
+  Pathname("Gemfile.next.lock").write(contents)
 end
 
 def set_bundler_version(version:)
-  gemfile_lock = Pathname("Gemfile.lock").read
+  gemfile_lock = Pathname("Gemfile.next.lock").read
 
   version = if version == :default
     ""
@@ -78,7 +78,7 @@ def set_bundler_version(version:)
   gemfile_lock.gsub!(/^BUNDLED WITH$(?:\r?\n) {2,3}(?<major>\d+)\.(?<minor>\d+)\.\d+/m, version)
   gemfile_lock << "\n#{version}" unless gemfile_lock.match?(/^BUNDLED WITH/)
 
-  Pathname("Gemfile.lock").write(gemfile_lock)
+  Pathname("Gemfile.next.lock").write(gemfile_lock)
 end
 
 def rails_lts_config

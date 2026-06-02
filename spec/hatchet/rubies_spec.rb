@@ -4,7 +4,7 @@ describe "Ruby versions" do
   it "should deploy jdk on heroku-24" do
     Hatchet::Runner.new("default_ruby", stack: "heroku-24").tap do |app|
       app.before_deploy do |app|
-        Pathname("Gemfile.lock").write(<<~EOM)
+        Pathname("Gemfile.next.lock").write(<<~EOM)
           GEM
             remote: https://rubygems.org/
             specs:

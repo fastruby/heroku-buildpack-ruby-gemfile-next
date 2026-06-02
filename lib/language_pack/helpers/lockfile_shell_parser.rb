@@ -6,7 +6,7 @@ require "open3"
 
 module LanguagePack
   module Helpers
-    # Parses gem specs from a Gemfile.lock file using Bundler::LockfileParser.
+    # Parses gem specs from a Gemfile.next.lock file using Bundler::LockfileParser.
     #
     # This module encapsulates the logic for extracting gem names and versions
     # from a lockfile, running the parsing in a subprocess to avoid polluting
@@ -20,7 +20,7 @@ module LanguagePack
     #
     # Example:
     #
-    #   specs = LockfileShellParser.call(lockfile_path: "/path/to/Gemfile.lock")
+    #   specs = LockfileShellParser.call(lockfile_path: "/path/to/Gemfile.next.lock")
     #   specs["rake"] # => #<Gem::Version "13.2.1">
     #
     module LockfileShellParser
@@ -34,14 +34,14 @@ module LanguagePack
         puts specs.to_json
       RUBY
 
-      # Parses gem specs from a Gemfile.lock file path.
+      # Parses gem specs from a Gemfile.next.lock file path.
       #
-      # @param lockfile_path [String, Pathname] Path to the Gemfile.lock file
+      # @param lockfile_path [String, Pathname] Path to the Gemfile.next.lock file
       # @return [Hash{String => Gem::Version}] Hash of gem names to their versions
       #
       # Example:
       #
-      #   specs = LockfileShellParser.call(lockfile_path: "Gemfile.lock")
+      #   specs = LockfileShellParser.call(lockfile_path: "Gemfile.next.lock")
       #   specs["rails"]    # => #<Gem::Version "7.0.4">
       #   specs["nokogiri"] # => #<Gem::Version "1.15.0">
       #
@@ -56,7 +56,7 @@ module LanguagePack
             JSON.parse(stdout).transform_values { |version| Gem::Version.new(version) }
           else
             raise <<~ERROR
-              Cannot parse `Gemfile.lock` file at path `#{lockfile_path}`
+              Cannot parse `Gemfile.next.lock` file at path `#{lockfile_path}`
 
               The Ruby buildpack runs a Ruby script that uses Bundler::LockfileParser to parse the lockfile of your application.
               This information is needed to set environment variables based on requested gems such as `RAILS_ENV`

@@ -32,8 +32,8 @@ class LanguagePack::Installers::HerokuRubyInstaller
       "ruby_version_engine" => ruby_version.engine,
       # i.e. `ruby-3.4.2-jruby-10.0.2.0` or `ruby-3.4.2` or `ruby-3.5.0.pre1`
       "ruby_version_unique" => ruby_version.version_for_download,
-      # i.e. `default` or `Gemfile.lock`
-      "ruby_version_origin" => ruby_version.default? ? "default" : "Gemfile.lock"
+      # i.e. `default` or `Gemfile.next.lock`
+      "ruby_version_origin" => ruby_version.default? ? "default" : "Gemfile.next.lock"
     )
 
     case ruby_version.engine
