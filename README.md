@@ -42,7 +42,7 @@ Example Usage:
            Procfile declares types -> (none)
            Default types for Ruby  -> console, rake
 
-The buildpack will detect your app as Ruby if it has a `Gemfile.enxt` and `Gemfile.next.lock` files in the root directory. It will then proceed to run `bundle install` after setting up the appropriate environment for [ruby](http://ruby-lang.org) and [Bundler](https://bundler.io).
+The buildpack will detect your app as Ruby if it has a `Gemfile.next` and `Gemfile.next.lock` files in the root directory. It will then proceed to run `bundle install` after setting up the appropriate environment for [ruby](http://ruby-lang.org) and [Bundler](https://bundler.io).
 
 ## Documentation
 
