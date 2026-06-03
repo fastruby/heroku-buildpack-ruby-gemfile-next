@@ -346,6 +346,7 @@ class LanguagePack::Ruby < LanguagePack::Base
     set_export_default "BUNDLE_WITHOUT", ENV["BUNDLE_WITHOUT"]
     set_export_default "BUNDLE_BIN", ENV["BUNDLE_BIN"]
     set_export_default "BUNDLE_DEPLOYMENT", ENV["BUNDLE_DEPLOYMENT"] # Unset on windows since we delete the Gemfile.next.lock
+    set_export_default "BUNDLE_GEMFILE", app_path.join("Gemfile.next").to_s
     default_config_vars.each do |key, value|
       set_export_default key, value
     end
