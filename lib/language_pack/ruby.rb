@@ -391,6 +391,7 @@ class LanguagePack::Ruby < LanguagePack::Base
     set_env_default "BUNDLE_WITHOUT", ENV["BUNDLE_WITHOUT"]
     set_env_default "BUNDLE_BIN", ENV["BUNDLE_BIN"]
     set_env_default "BUNDLE_DEPLOYMENT", ENV["BUNDLE_DEPLOYMENT"] if ENV["BUNDLE_DEPLOYMENT"] # Unset on windows since we delete the Gemfile.next.lock
+    set_env_default "BUNDLE_GEMFILE", "#{ruby_layer_path}/Gemfile.next"
   end
 
   def warn_outdated_ruby
