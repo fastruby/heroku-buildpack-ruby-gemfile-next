@@ -1,9 +1,19 @@
 # Heroku Buildpack for Ruby
+
 ![ruby](https://raw.githubusercontent.com/heroku/buildpacks/refs/heads/main/assets/images/buildpack-banner-ruby.png)
 
 This is a [Heroku Buildpack](http://devcenter.heroku.com/articles/buildpacks) for Ruby, Rack, and Rails apps. It uses [Bundler](https://bundler.io) for dependency management.
 
 This buildpack requires 64-bit Linux.
+
+## About this fork
+
+This is a fork of Heroku's official Ruby buildpack, but it uses the `Gemfile.next` file instead of `Gemfile` to install gems. The official buildpack does not support the use of the `BUNDLE_GEMFILE` environment variable.
+
+This is useful for setups that use dual-boot:
+
+- the official buildpack can be used to run the application using the gems in the `Gemfile` file
+- this fork can be used to run the application using the gems in the `Gemfile.next` file
 
 ## Usage
 
@@ -12,7 +22,7 @@ This buildpack requires 64-bit Linux.
 Example Usage:
 
     $ ls
-    Gemfile Gemfile.lock
+    Gemfile.next Gemfile.next.lock
 
     $ heroku create --buildpack heroku/ruby
 
@@ -32,7 +42,7 @@ Example Usage:
            Procfile declares types -> (none)
            Default types for Ruby  -> console, rake
 
-The buildpack will detect your app as Ruby if it has a `Gemfile` and `Gemfile.lock` files in the root directory. It will then proceed to run `bundle install` after setting up the appropriate environment for [ruby](http://ruby-lang.org) and [Bundler](https://bundler.io).
+The buildpack will detect your app as Ruby if it has a `Gemfile.next` and `Gemfile.next.lock` files in the root directory. It will then proceed to run `bundle install` after setting up the appropriate environment for [ruby](http://ruby-lang.org) and [Bundler](https://bundler.io).
 
 ## Documentation
 
@@ -46,7 +56,7 @@ For more information about using Ruby and buildpacks on Heroku, see these Dev Ce
 
 ## Hacking
 
-To use this buildpack, fork it on Github.  Push up changes to your fork, then create a test app with `--buildpack <your-github-url>` and push to it.
+To use this buildpack, fork it on Github. Push up changes to your fork, then create a test app with `--buildpack <your-github-url>` and push to it.
 
 ### Testing
 

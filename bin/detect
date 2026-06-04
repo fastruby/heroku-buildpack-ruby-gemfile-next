@@ -5,7 +5,7 @@ set -euo pipefail
 APP_DIR=$1
 BIN_DIR=$(cd "$(dirname "$0")" || exit; pwd) # absolute path
 
-if [ -f "$APP_DIR/Gemfile" ]; then
+if [ -f "$APP_DIR/Gemfile.next" ]; then
   echo "Ruby"
   exit 0
 fi
@@ -15,9 +15,9 @@ source "$BIN_DIR/support/bash_functions.sh"
 
 output::error <<EOF
 Error: Your app is configured to use the Ruby buildpack,
-but we couldn't find any supported Ruby project files ('Gemfile' and 'Gemfile.lock').
+but we couldn't find any supported Ruby project files ('Gemfile.next' and 'Gemfile.next.lock').
 
-A Ruby app on Heroku must have a 'Gemfile' and 'Gemfile.lock' in the root directory of its source code.
+A Ruby app on Heroku must have a 'Gemfile.next' and 'Gemfile.next.lock' in the root directory of its source code.
 
 Currently the root directory of your app contains:
 
@@ -32,7 +32,7 @@ If your app already has a package manager file, check that it:
    and then committed using 'git commit'.
 
 Otherwise, add a package manager file to your app. If your app has
-no dependencies, then create an empty 'Gemfile', run 'bundle install' and
+no dependencies, then create an empty 'Gemfile.next', run 'bundle install' and
 commit the results to git.
 
 For help with using Ruby on Heroku, see:

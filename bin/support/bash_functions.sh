@@ -36,12 +36,12 @@ which_java()
   command -v java > /dev/null
 }
 
-# Detects if a given Gemfile.lock has jruby in it
-# $ cat Gemfile.lock | grep jruby # => ruby 2.5.7p001 (jruby 9.2.13.0)
+# Detects if a given Gemfile.next.lock has jruby in it
+# $ cat Gemfile.next.lock | grep jruby # => ruby 2.5.7p001 (jruby 9.2.13.0)
 detect_needs_java()
 {
   local app_dir=$1
-  local gemfile_lock="$app_dir/Gemfile.lock"
+  local gemfile_lock="$app_dir/Gemfile.next.lock"
   # local needs_jruby=0
   local skip_java_install=1
 

@@ -123,13 +123,13 @@ describe "Ruby apps" do
 
       Hatchet::Runner.new("default_ruby", stack: DEFAULT_STACK, buildpacks: buildpacks, config: config).tap do |app|
         app.before_deploy do
-          Pathname("Gemfile").write(<<~EOF)
+          Pathname("Gemfile.next").write(<<~EOF)
             source "https://rubygems.org"
 
             gem "rake"
           EOF
 
-          Pathname("Gemfile.lock").write(<<~EOF)
+          Pathname("Gemfile.next.lock").write(<<~EOF)
             GEM
               remote: https://rubygems.org/
               specs:
@@ -254,7 +254,7 @@ describe "No Lockfile" do
   it "should not deploy" do
     Hatchet::Runner.new("no_lockfile", allow_failure: true).deploy do |app|
       expect(app).not_to be_deployed
-      expect(app.output).to include("Gemfile.lock required")
+      expect(app.output).to include("Gemfile.next.lock required")
     end
   end
 end

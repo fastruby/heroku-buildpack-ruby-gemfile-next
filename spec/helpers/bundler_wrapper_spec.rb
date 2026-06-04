@@ -3,7 +3,7 @@ require "spec_helper"
 describe "Multiple platform detection" do
   it "reports true on bundler 2.2+" do
     Dir.mktmpdir do |dir|
-      gemfile = Pathname(dir).join("Gemfile")
+      gemfile = Pathname(dir).join("Gemfile.next")
       report = HerokuBuildReport.dev_null
 
       LanguagePack::Helpers::BundlerWrapper.new(
@@ -31,8 +31,8 @@ describe "BundlerWrapper" do
       tmp_dir = Pathname(dir)
       FileUtils.cp_r(fixture_path("windows_lockfile/."), tmp_dir)
 
-      tmp_gemfile_path = tmp_dir.join("Gemfile")
-      tmp_gemfile_lock_path = tmp_dir.join("Gemfile.lock")
+      tmp_gemfile_path = tmp_dir.join("Gemfile.next")
+      tmp_gemfile_lock_path = tmp_dir.join("Gemfile.next.lock")
 
       expect(tmp_gemfile_lock_path.read).to match("BUNDLED")
 

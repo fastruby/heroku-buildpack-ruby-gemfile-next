@@ -1,6 +1,6 @@
 module LanguagePack
   module Helpers
-    # Centralize logic for extracting information from the `Gemfile.lock` format
+    # Centralize logic for extracting information from the `Gemfile.next.lock` format
     #
     # - Extracts Ruby version from `RUBY VERSION`
     # - Extracts Bundler version from `BUNDLED WITH`
@@ -25,9 +25,9 @@ module LanguagePack
         @contents = contents
       end
 
-      # Holds information about the RUBY VERSION of the parsed Gemfile.lock
+      # Holds information about the RUBY VERSION of the parsed Gemfile.next.lock
       class RubyVersionParse
-        # Ruby version from Gemfile.lock i.e. `3.3.8`
+        # Ruby version from Gemfile.next.lock i.e. `3.3.8`
         # Either 3 numbers or nil
         attr_reader :ruby_version,
           # Contains pre-release info
@@ -72,7 +72,7 @@ module LanguagePack
       end
 
       class BundlerVersionParse
-        # Bundler value from `Gemfile.lock` (String or nil) i.e. `2.5.23`
+        # Bundler value from `Gemfile.next.lock` (String or nil) i.e. `2.5.23`
         attr_reader :version
 
         def initialize(contents:, report: HerokuBuildReport::GLOBAL)

@@ -27,7 +27,7 @@ describe "RubyVersion" do
       dir = Pathname(Dir.pwd)
       ruby_version = LanguagePack::RubyVersion.from_gemfile_lock(
         ruby: LanguagePack::Helpers::GemfileLock.new(
-          contents: dir.join("Gemfile.lock").read
+          contents: dir.join("Gemfile.next.lock").read
         ).ruby
       )
       version = LanguagePack::RubyVersion::DEFAULT_VERSION
@@ -42,10 +42,10 @@ describe "RubyVersion" do
     end
   end
 
-  it "detects Ruby from Gemfile.lock" do
+  it "detects Ruby from Gemfile.next.lock" do
     Hatchet::App.new("default_ruby").in_directory_fork do |_|
       dir = Pathname(Dir.pwd)
-      dir.join("Gemfile.lock").write(<<~EOF)
+      dir.join("Gemfile.next.lock").write(<<~EOF)
         GEM
           remote: https://rubygems.org/
           specs:
@@ -70,7 +70,7 @@ describe "RubyVersion" do
       version = "ruby-#{version_number}"
       ruby_version = LanguagePack::RubyVersion.from_gemfile_lock(
         ruby: LanguagePack::Helpers::GemfileLock.new(
-          contents: dir.join("Gemfile.lock").read
+          contents: dir.join("Gemfile.next.lock").read
         ).ruby
       )
       expect(ruby_version.version_for_download).to eq(version)
@@ -79,10 +79,10 @@ describe "RubyVersion" do
     end
   end
 
-  it "detects RC Ruby from Gemfile.lock" do
+  it "detects RC Ruby from Gemfile.next.lock" do
     Hatchet::App.new("default_ruby").in_directory_fork do |_|
       dir = Pathname(Dir.pwd)
-      dir.join("Gemfile.lock").write(<<~EOF)
+      dir.join("Gemfile.next.lock").write(<<~EOF)
         GEM
           remote: https://rubygems.org/
           specs:
@@ -109,7 +109,7 @@ describe "RubyVersion" do
       # Shadow logic validation
       ruby_version = LanguagePack::RubyVersion.from_gemfile_lock(
         ruby: LanguagePack::Helpers::GemfileLock.new(
-          contents: dir.join("Gemfile.lock").read
+          contents: dir.join("Gemfile.next.lock").read
         ).ruby
       )
       expect(ruby_version.version_for_download).to eq(version)
@@ -121,7 +121,7 @@ describe "RubyVersion" do
   it "detects pre versions that do not end in numbers" do
     Hatchet::App.new("default_ruby").in_directory_fork do |_|
       dir = Pathname(Dir.pwd)
-      dir.join("Gemfile.lock").write(<<~EOF)
+      dir.join("Gemfile.next.lock").write(<<~EOF)
         GEM
           remote: https://rubygems.org/
           specs:
@@ -147,7 +147,7 @@ describe "RubyVersion" do
 
       ruby_version = LanguagePack::RubyVersion.from_gemfile_lock(
         ruby: LanguagePack::Helpers::GemfileLock.new(
-          contents: dir.join("Gemfile.lock").read
+          contents: dir.join("Gemfile.next.lock").read
         ).ruby
       )
       expect(ruby_version.version_for_download).to eq(version)
@@ -160,7 +160,7 @@ describe "RubyVersion" do
   it "detects non mri engines" do
     Hatchet::App.new("default_ruby").in_directory_fork do |_|
       dir = Pathname(Dir.pwd)
-      dir.join("Gemfile.lock").write(<<~EOF)
+      dir.join("Gemfile.next.lock").write(<<~EOF)
         GEM
           remote: https://rubygems.org/
           specs:
@@ -182,7 +182,7 @@ describe "RubyVersion" do
 
       ruby_version = LanguagePack::RubyVersion.from_gemfile_lock(
         ruby: LanguagePack::Helpers::GemfileLock.new(
-          contents: dir.join("Gemfile.lock").read
+          contents: dir.join("Gemfile.next.lock").read
         ).ruby
       )
       expect(ruby_version.version_for_download).to eq("ruby-#{version_number}-#{engine}-#{engine_version}")
@@ -273,7 +273,7 @@ describe "get_ruby_version .ruby-version comparison" do
     expect(report.data["dot_ruby_version.vs_gemfile_lock"]).to eq("dot_ruby_version_higher")
   end
 
-  it "reports gemfile_lock_higher when Gemfile.lock is newer" do
+  it "reports gemfile_lock_higher when Gemfile.next.lock is newer" do
     report = get_ruby_version(
       gemfile_lock: gemfile_lock_with_ruby("3.4.2"),
       dot_ruby_version_result: dot_ruby_version_result("3.3.0")
@@ -283,7 +283,7 @@ describe "get_ruby_version .ruby-version comparison" do
     expect(report.data["dot_ruby_version.vs_gemfile_lock"]).to eq("gemfile_lock_higher")
   end
 
-  it "sets version but skips comparison when Gemfile.lock has no ruby version" do
+  it "sets version but skips comparison when Gemfile.next.lock has no ruby version" do
     report = get_ruby_version(
       gemfile_lock: gemfile_lock_default,
       dot_ruby_version_result: dot_ruby_version_result("3.4.2")
